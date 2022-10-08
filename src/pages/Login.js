@@ -44,6 +44,11 @@ class Login extends Component {
     history.push('/game');
   };
 
+  logClickSet = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  };
+
   render() {
     const { state } = this;
     const {
@@ -81,6 +86,14 @@ class Login extends Component {
           >
             Play
 
+          </button>
+          <button
+            data-testid="btn-settings"
+            type="button"
+            name="btnSettings"
+            onClick={ this.logClickSet }
+          >
+            Settings
           </button>
         </form>
       </div>
