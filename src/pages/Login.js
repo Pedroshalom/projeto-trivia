@@ -1,9 +1,11 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import logo from '../trivia.png';
 import '../App.css';
+import getToken from '../services/API';
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     isDisabled: true,
     email: '',
@@ -32,6 +34,14 @@ export default class Login extends Component {
     } else {
       this.setState({ isDisabled: true });
     }
+  };
+
+  handleClick = async () => {
+    const { history } = this.props;
+    const key = await getToken();
+    const { token } = key;
+    localStorage.setItem('token', token);
+    history.push('/game');
   };
 
   render() {
@@ -66,6 +76,7 @@ export default class Login extends Component {
           <button
             type="button"
             disabled={ isDisabled }
+            onClick={ this.handleClick }
             data-testid="btn-play"
           >
             Play
@@ -76,3 +87,11 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
+
+export default connect()(Login);
