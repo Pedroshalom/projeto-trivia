@@ -64,7 +64,7 @@ describe("Testa a pagina de login e seus componentes", () => {
     //Ação de clicar no botão
     userEvent.click(playBtn);
     //Espero localizar na pagina um texto ou elemento
-    await screen.findByText("Game");
+    await screen.findByText("GAME");
     //novo endereço do site
     const { pathname } = history.location;
     //testo se o endereço mudou

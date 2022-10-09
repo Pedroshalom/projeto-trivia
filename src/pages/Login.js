@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import logo from '../trivia.png';
 import '../App.css';
 import getToken from '../services/API';
+import { addUser } from '../redux/action';
 
 class Login extends Component {
   state = {
@@ -36,10 +37,18 @@ class Login extends Component {
     }
   };
 
+  dispatchUser = () => {
+    const { dispatch } = this.props;
+    const { nome, email } = this.state;
+    const user = { name: nome, email };
+    dispatch(addUser(user));
+  };
+
   handleClick = async () => {
     const { history } = this.props;
     const key = await getToken();
     const { token } = key;
+    this.dispatchUser();
     localStorage.setItem('token', token);
     history.push('/game');
   };
