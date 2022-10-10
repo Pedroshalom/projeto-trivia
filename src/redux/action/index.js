@@ -1,13 +1,13 @@
 import getToken from '../../services/API';
 
-export const ADD_EMAIL = 'ADD_EMAIL';
+export const ADD_USER = 'ADD_USER';
 export const REQUEST_TOKEN = 'REQUEST_TOKEN';
 export const REQUEST_TOKEN_SUCCESS = 'REQUEST_TOKEN_SUCCESS';
 export const REQUEST_TOKEN_FAILURE = 'REQUEST_TOKEN_FAILURE';
 
-export const addEmail = (email) => ({
-  type: ADD_EMAIL,
-  payload: email,
+export const addUser = (user) => ({
+  type: ADD_USER,
+  user,
 });
 
 export const requestAPIToken = () => ({
