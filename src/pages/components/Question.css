@@ -1,0 +1,7 @@
+.alternativa_correta {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.alternativa_errada {
+  border: 3px solid red;
+}

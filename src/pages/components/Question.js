@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import getQuestion from '../../services/questionsAPI';
+import './Question.css';
 
 class Question extends Component {
   state = {
@@ -66,6 +67,7 @@ class Question extends Component {
             {answers.map((element, key) => (
               (element === question.correct_answer) ? (
                 <button
+                  className="alternativa_correta"
                   type="button"
                   data-testid="correct-answer"
                   key={ key }
@@ -74,6 +76,7 @@ class Question extends Component {
                 </button>
               ) : (
                 <button
+                  className="alternativa_errada"
                   type="button"
                   data-testid={ `wrong-answer-${key}` }
                   key={ key }
