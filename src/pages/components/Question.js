@@ -9,11 +9,38 @@ class Question extends Component {
   state = {
     results: [],
     number: 0,
+    timer: 30,
+    isDisabled: false,
+    answers: [],
+    rightAnswer: '',
   };
 
   componentDidMount() {
     this.resultsAPI();
+    this.timer();
   }
+
+  timer = () => {
+    const ONE_SECOND = 1000;
+    const interval = setInterval(() => {
+      const { timer } = this.state;
+      this.setState((prevState) => ({ timer: prevState.timer - 1 }));
+      if (timer === 0) {
+        this.setState({ isDisabled: true, timer: 0 }, () => {
+          clearInterval(interval);
+        });
+      }
+    }, ONE_SECOND);
+  };
+
+  getAnswers = (results) => {
+    const { number } = this.state;
+    const question = results[number];
+    const getAnswers = [question.correct_answer,
+      ...question.incorrect_answers];
+    const answers = this.shuffleArray(getAnswers);
+    this.setState({ answers, rightAnswer: question.correct_answer });
+  };
 
   conditionToStart = (response, results) => {
     const { history } = this.props;
@@ -23,6 +50,7 @@ class Question extends Component {
       history.push('/');
     } else {
       this.setState({ results, loading: true });
+      this.getAnswers(results);
     }
   };
 
@@ -54,27 +82,27 @@ class Question extends Component {
   };
 
   render() {
-    const { results, number, loading } = this.state;
+    const { results, answers, rightAnswer,
+      number, loading, timer,
+      isDisabled } = this.state;
+    const question = results[number];
     if (!loading) {
       return <h1> LOADING... </h1>;
     }
-    const question = results[number];
-    const getAnswers = [question.correct_answer,
-      ...question.incorrect_answers];
-    const answers = this.shuffleArray(getAnswers);
-    console.log(answers);
     return (
       <section>
         <div>{`Question - ${number + 1}`}</div>
         <div>
           <h2 data-testid="question-category">{question.category}</h2>
           <h3 data-testid="question-text">{question.question}</h3>
+          {timer}
           <div data-testid="answer-options">
             {answers.map((element, key) => (
-              (element === question.correct_answer) ? (
+              (element === rightAnswer) ? (
                 <button
                   className="alternativa_correta"
                   type="button"
+                  disabled={ isDisabled }
                   data-testid="correct-answer"
                   key={ key }
                   onClick={ this.addPoint }
@@ -85,6 +113,7 @@ class Question extends Component {
                 <button
                   className="alternativa_errada"
                   type="button"
+                  disabled={ isDisabled }
                   data-testid={ `wrong-answer-${key}` }
                   key={ key }
                 >
