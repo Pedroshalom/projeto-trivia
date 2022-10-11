@@ -4,6 +4,12 @@ export const ADD_USER = 'ADD_USER';
 export const REQUEST_TOKEN = 'REQUEST_TOKEN';
 export const REQUEST_TOKEN_SUCCESS = 'REQUEST_TOKEN_SUCCESS';
 export const REQUEST_TOKEN_FAILURE = 'REQUEST_TOKEN_FAILURE';
+export const ADD_SCORE = 'ADD_SCORE';
+
+export const addScore = (score) => ({
+  type: ADD_SCORE,
+  score,
+});
 
 export const addUser = (user) => ({
   type: ADD_USER,

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import getQuestion from '../../services/questionsAPI';
 import './Question.css';
+import { ADD_SCORE } from '../../redux/action';
 
 class Question extends Component {
   state = {
@@ -47,6 +48,11 @@ class Question extends Component {
     return array;
   };
 
+  addPoint = () => {
+    const { dispatch } = this.props;
+    dispatch(ADD_SCORE());
+  };
+
   render() {
     const { results, number, loading } = this.state;
     if (!loading) {
@@ -71,6 +77,7 @@ class Question extends Component {
                   type="button"
                   data-testid="correct-answer"
                   key={ key }
+                  onClick={ this.addPoint }
                 >
                   {element}
                 </button>
@@ -84,10 +91,8 @@ class Question extends Component {
                   {element}
                 </button>
               )))}
-
           </div>
         </div>
-
       </section>
     );
   }
