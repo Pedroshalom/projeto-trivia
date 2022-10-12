@@ -115,22 +115,16 @@ class Question extends Component {
     this.setState({ marked: true, timer: 0, isDisabled: true, activateNext: true });
   };
 
-  // nextQuestion = () => {
-  //   const { number } = this.state;
-  //   this.setState(
-  //     { number: number + 1, timer: 30, marked: false, isDisabled: false },
-  //     () => this.timer(),
-  //   );
-  //   const NUMBER_MAX_QUESTIONS = 4;
-  //   this.setState(() => {
-  //     if (number === NUMBER_MAX_QUESTIONS) {
-  //       return ({
-  //         number: number + 1,
-  //         timer: 30,
-  //       });
-  //     }
-  //   });
-  // };
+  nextQuestion = () => {
+    // const { results } = this.state;
+    this.setState(
+      { timer: 30,
+        marked: false,
+        isDisabled: false,
+      },
+      () => this.timer(),
+    );
+  };
 
   render() {
     const { results, answers, rightAlternative,
