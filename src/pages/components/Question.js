@@ -15,6 +15,7 @@ class Question extends Component {
     rightAlternative: '',
     marked: false,
     rightAnswers: 0,
+    activateNext: false,
   };
 
   componentDidMount() {
@@ -108,15 +109,33 @@ class Question extends Component {
         marked: true,
         timer: 0,
         isDisabled: true,
+        activateNext: true,
       });
     }
-    this.setState({ marked: true, timer: 0, isDisabled: true });
+    this.setState({ marked: true, timer: 0, isDisabled: true, activateNext: true });
   };
+
+  // nextQuestion = () => {
+  //   const { number } = this.state;
+  //   this.setState(
+  //     { number: number + 1, timer: 30, marked: false, isDisabled: false },
+  //     () => this.timer(),
+  //   );
+  //   const NUMBER_MAX_QUESTIONS = 4;
+  //   this.setState(() => {
+  //     if (number === NUMBER_MAX_QUESTIONS) {
+  //       return ({
+  //         number: number + 1,
+  //         timer: 30,
+  //       });
+  //     }
+  //   });
+  // };
 
   render() {
     const { results, answers, rightAlternative,
       number, loading, timer,
-      isDisabled, marked } = this.state;
+      isDisabled, marked, activateNext } = this.state;
     const question = results[number];
     if (!loading) {
       return <h1> LOADING... </h1>;
@@ -153,11 +172,21 @@ class Question extends Component {
                 >
                   {element}
                 </button>
-              )))}
 
+              )))}
+            {
+              ((activateNext) && (
+                <button
+                  data-testid="btn-next"
+                  type="button"
+                  onClick={ this.nextQuestion }
+                >
+                  Next
+                </button>
+              ))
+            }
           </div>
         </div>
-
       </section>
     );
   }
