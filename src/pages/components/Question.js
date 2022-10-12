@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getPoints } from '../../redux/action';
 import getQuestion from '../../services/questionsAPI';
 import './Question.css';
-import { ADD_SCORE } from '../../redux/action';
 
 class Question extends Component {
   state = {
@@ -12,7 +12,9 @@ class Question extends Component {
     timer: 30,
     isDisabled: false,
     answers: [],
-    rightAnswer: '',
+    rightAlternative: '',
+    marked: false,
+    rightAnswers: 0,
   };
 
   componentDidMount() {
@@ -26,7 +28,7 @@ class Question extends Component {
       const { timer } = this.state;
       this.setState((prevState) => ({ timer: prevState.timer - 1 }));
       if (timer === 0) {
-        this.setState({ isDisabled: true, timer: 0 }, () => {
+        this.setState({ isDisabled: true, timer: 0, marked: true }, () => {
           clearInterval(interval);
         });
       }
@@ -39,7 +41,7 @@ class Question extends Component {
     const getAnswers = [question.correct_answer,
       ...question.incorrect_answers];
     const answers = this.shuffleArray(getAnswers);
-    this.setState({ answers, rightAnswer: question.correct_answer });
+    this.setState({ answers, rightAlternative: question.correct_answer });
   };
 
   conditionToStart = (response, results) => {
@@ -76,15 +78,45 @@ class Question extends Component {
     return array;
   };
 
-  addPoint = () => {
+  dispatchScore = (score) => {
     const { dispatch } = this.props;
-    dispatch(ADD_SCORE());
+    dispatch(getPoints(score));
+  };
+
+  sumPoints = () => {
+    const { number, results, timer } = this.state;
+    const points = { basePoints: 10, hard: 3, medium: 2, easy: 1 };
+    const { difficulty } = results[number];
+    if (difficulty === 'hard') {
+      const score = points.basePoints + (points.hard * timer);
+      this.dispatchScore(score);
+    } else if (difficulty === 'medium') {
+      const score = points.basePoints + (points.medium * timer);
+      this.dispatchScore(score);
+    } else {
+      const score = points.basePoints + (points.easy * timer);
+      this.dispatchScore(score);
+    }
+  };
+
+  handleClick = ({ target }) => {
+    const { rightAnswers } = this.state;
+    const { id } = target;
+    if (id === 'correct') {
+      this.sumPoints();
+      this.setState({ rightAnswers: rightAnswers + 1,
+        marked: true,
+        timer: 0,
+        isDisabled: true,
+      });
+    }
+    this.setState({ marked: true, timer: 0, isDisabled: true });
   };
 
   render() {
-    const { results, answers, rightAnswer,
+    const { results, answers, rightAlternative,
       number, loading, timer,
-      isDisabled } = this.state;
+      isDisabled, marked } = this.state;
     const question = results[number];
     if (!loading) {
       return <h1> LOADING... </h1>;
@@ -98,24 +130,26 @@ class Question extends Component {
           {timer}
           <div data-testid="answer-options">
             {answers.map((element, key) => (
-              (element === rightAnswer) ? (
+              (element === rightAlternative) ? (
                 <button
-                  className="alternativa_correta"
+                  className={ marked ? 'alternativa_correta' : 'alternativa' }
                   type="button"
                   disabled={ isDisabled }
                   data-testid="correct-answer"
                   key={ key }
-                  onClick={ this.addPoint }
+                  onClick={ this.handleClick }
+                  id="correct"
                 >
                   {element}
                 </button>
               ) : (
                 <button
-                  className="alternativa_errada"
+                  className={ marked ? 'alternativa_errada' : 'alternativa' }
                   type="button"
                   disabled={ isDisabled }
                   data-testid={ `wrong-answer-${key}` }
                   key={ key }
+                  onClick={ this.handleClick }
                 >
                   {element}
                 </button>
