@@ -5,3 +5,7 @@
 .alternativa_errada {
   border: 3px solid red;
 }
+
+.alternativa {
+  border: 1px solid black;
+}

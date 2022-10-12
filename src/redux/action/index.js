@@ -4,6 +4,7 @@ export const ADD_USER = 'ADD_USER';
 export const REQUEST_TOKEN = 'REQUEST_TOKEN';
 export const REQUEST_TOKEN_SUCCESS = 'REQUEST_TOKEN_SUCCESS';
 export const REQUEST_TOKEN_FAILURE = 'REQUEST_TOKEN_FAILURE';
+export const SCORE_POINTS = 'SCORE_POINTS';
 
 export const addUser = (user) => ({
   type: ADD_USER,
@@ -22,6 +23,11 @@ export const requestTokenSuccess = (token) => ({
 export const requestTokenFailure = (error) => ({
   type: REQUEST_TOKEN_FAILURE,
   error,
+});
+
+export const getPoints = (points) => ({
+  type: SCORE_POINTS,
+  points,
 });
 
 export function fetchToken() {

@@ -4,16 +4,12 @@ import { MD5 } from 'crypto-js';
 import { connect } from 'react-redux';
 
 class Header extends Component {
-  state = {
-    score: 0,
-  };
-
   render() {
-    const { name, email } = this.props;
+    const { name, email, score } = this.props;
+    console.log(this.props);
     const gravatar = 'https://www.gravatar.com/avatar/';
     const hash = MD5(email).toString();
     const imgGravatar = `${gravatar}${hash}`;
-    const { score } = this.state;
     return (
       <section>
         <div>
@@ -37,7 +33,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  ...state.user,
+  ...state.player,
 });
 
 Header.propTypes = {
