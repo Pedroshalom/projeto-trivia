@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import Header from './components/Header';
 
 const MIN_SCORE = 3;
 
+
 class Feedback extends Component {
+  playAgainClick = () => {
+    const { history } = this.props;
+    history.push('/');
+  };
+
   render() {
     console.log(this.props);
     const { rightAnswers } = this.props;
@@ -19,6 +25,17 @@ class Feedback extends Component {
           <div data-testid="feedback-text">Well Done!</div>
         )}
       </section>
+      <div>
+        <div data-testid="feedback-text">Feedback</div>
+        <button
+          data-testid="btn-play-again"
+          type="button"
+          name="btnPlayAgain"
+          onClick={ this.playAgainClick }
+        >
+          Play Again
+        </button>
+      </div>
     );
   }
 }
@@ -28,7 +45,8 @@ const mapStateToProps = ({ player }) => ({
 });
 
 Feedback.propTypes = {
-  rightAnswers: PropTypes.number.isRequired,
+  rightAnswers: propTypes.number.isRequired,
+  history: propTypes.shape().isRequired, // req 15
 };
 
-export default connect(mapStateToProps, null)(Feedback);
+export default connect(mapStateToProps)(Feedback);
