@@ -15,7 +15,6 @@ class Question extends Component {
     rightAlternative: '',
     marked: false,
     rightAnswers: 0,
-    activateNext: false,
   };
 
   componentDidMount() {
@@ -109,10 +108,9 @@ class Question extends Component {
         marked: true,
         timer: 0,
         isDisabled: true,
-        activateNext: true,
       });
     }
-    this.setState({ marked: true, timer: 0, isDisabled: true, activateNext: true });
+    this.setState({ marked: true, timer: 0, isDisabled: true });
   };
 
   nextQuestion = () => {
@@ -139,7 +137,7 @@ class Question extends Component {
   render() {
     const { results, answers, rightAlternative,
       number, loading, timer,
-      isDisabled, marked, activateNext } = this.state;
+      isDisabled, marked } = this.state;
     const question = results[number];
     if (!loading) {
       return <h1> LOADING... </h1>;
@@ -179,7 +177,7 @@ class Question extends Component {
 
               )))}
             {
-              ((activateNext) && (
+              ((marked) && (
                 <button
                   data-testid="btn-next"
                   type="button"
