@@ -20,7 +20,7 @@ class Feedback extends Component {
     console.log(this.props);
     const { assertions, score } = this.props;
     return (
-      <section>
+      <section className="feedback">
         <Header />
         <div data-testid="feedback-text">Feedback</div>
         <div>
@@ -43,6 +43,7 @@ class Feedback extends Component {
         )}
         <div>
           <button
+            className="btnPlayAgain"
             data-testid="btn-play-again"
             type="button"
             name="btnPlayAgain"
@@ -52,6 +53,7 @@ class Feedback extends Component {
           </button>
         </div>
         <button
+          className="btnRanking"
           data-testid="btn-ranking"
           type="button"
           name="btnRanking"

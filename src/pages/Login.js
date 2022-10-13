@@ -66,7 +66,7 @@ class Login extends Component {
       isDisabled,
     } = state;
     return (
-      <div>
+      <div className="login">
         <header className="App-header">
           <img src={ logo } className="App-logo" alt="logo" />
         </header>

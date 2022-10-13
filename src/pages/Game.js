@@ -7,11 +7,11 @@ class Game extends Component {
   render() {
     const { history } = this.props;
     return (
-      <>
+      <div className="game">
         <Header />
         <div><h2>GAME</h2></div>
         <Question history={ history } />
-      </>
+      </div>
     );
   }
 }
