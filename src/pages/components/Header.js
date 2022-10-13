@@ -13,7 +13,7 @@ class Header extends Component {
     return (
       <section>
         <div>
-          <h1>GAME - TRIVIA </h1>
+          <h1> TRIVIA </h1>
         </div>
         <div>
           <div>

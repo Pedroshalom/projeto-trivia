@@ -11,13 +11,31 @@ class Feedback extends Component {
     history.push('/');
   };
 
+  clickToRanking = () => {
+    const { history } = this.props;
+    history.push('/ranking');
+  };
+
   render() {
     console.log(this.props);
-    const { assertions } = this.props;
+    const { assertions, score } = this.props;
     return (
       <section>
         <Header />
         <div data-testid="feedback-text">Feedback</div>
+        <div>
+          <p>
+            Total Score:
+            {' '}
+            <span data-testid="feedback-total-score">{score}</span>
+          </p>
+          <p>
+            Assertions:
+            {' '}
+            <span data-testid="feedback-total-question">{assertions}</span>
+          </p>
+
+        </div>
         { parseFloat(assertions) < MIN_SCORE ? (
           <div data-testid="feedback-text">Could be better...</div>
         ) : (
@@ -33,6 +51,15 @@ class Feedback extends Component {
             Play Again
           </button>
         </div>
+        <button
+          data-testid="btn-ranking"
+          type="button"
+          name="btnRanking"
+          onClick={ this.clickToRanking }
+        >
+          Ranking
+        </button>
+
       </section>
     );
   }
@@ -40,11 +67,13 @@ class Feedback extends Component {
 
 const mapStateToProps = ({ player }) => ({
   assertions: player.assertions,
+  score: player.score,
 });
 
 Feedback.propTypes = {
-  assertions: propTypes.number.isRequired,
-  history: propTypes.shape().isRequired, // req 15
-};
+  assertions: propTypes.number,
+  history: propTypes.shape(), // req 15
+  score: propTypes.number,
+}.isRequired;
 
 export default connect(mapStateToProps)(Feedback);

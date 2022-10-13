@@ -9,6 +9,7 @@ class Game extends Component {
     return (
       <>
         <Header />
+        <div><h2>GAME</h2></div>
         <Question history={ history } />
       </>
     );
