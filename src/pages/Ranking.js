@@ -10,9 +10,10 @@ class Ranking extends Component {
 
   render() {
     return (
-      <div>
+      <div className="ranking">
         <p data-testid="ranking-title">Ranking</p>
         <button
+          className="btn-go-home"
           type="button"
           data-testid="btn-go-home"
           onClick={ this.loginButton }

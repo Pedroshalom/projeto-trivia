@@ -21,6 +21,54 @@ body {
   border: 1px solid green;
 }
 
+.game {
+  align-items: center;
+  background-color: rgb(46, 147, 60);
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.feedback {
+  align-items: center;
+  background-color: rgb(46, 147, 60);
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.btnRanking {
+  border: 0;
+  border-radius: 5px;
+  margin: 10px;
+  margin-top: 10px;
+}
+
+.btnPlayAgain {
+  border: 0;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.ranking {
+  align-items: center;
+  background-color: rgb(46, 147, 60);
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.btn-go-home {
+  border: 0;
+  border-radius: 5px;
+}
+
 @media ( prefers-reduced-motion : no-preference ) {
 
   .App-logo {
