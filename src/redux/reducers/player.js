@@ -1,10 +1,10 @@
 import { ADD_USER, SCORE_POINTS, RIGHT_ANSWERS } from '../action';
 
 const INITIAL_STATE = {
-  email: '',
+  gravatarEmail: '',
   name: '',
   score: 0,
-  rightAnswers: 0,
+  assertions: 0,
 };
 
 function player(state = INITIAL_STATE, action) {
@@ -12,7 +12,7 @@ function player(state = INITIAL_STATE, action) {
   case ADD_USER:
     return {
       ...state,
-      email: action.user.email,
+      gravatarEmail: action.user.email,
       name: action.user.name,
     };
   case SCORE_POINTS:
@@ -23,7 +23,7 @@ function player(state = INITIAL_STATE, action) {
   case RIGHT_ANSWERS:
     return {
       ...state,
-      rightAnswers: Number(action.rightAnswers),
+      assertions: Number(action.rightAnswers),
     };
   default:
     return state;
