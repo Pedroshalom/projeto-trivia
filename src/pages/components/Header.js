@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { name, email, score } = this.props;
+    const { name, gravatarEmail, score } = this.props;
     console.log(this.props);
     const gravatar = 'https://www.gravatar.com/avatar/';
-    const hash = MD5(email).toString();
+    const hash = MD5(gravatarEmail).toString();
     const imgGravatar = `${gravatar}${hash}`;
     return (
       <section>
