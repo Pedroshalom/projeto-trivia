@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPoints } from '../../redux/action';
+import { getPoints, strikes } from '../../redux/action';
 import getQuestion from '../../services/questionsAPI';
 import './Question.css';
 
@@ -104,7 +104,8 @@ class Question extends Component {
     const { id } = target;
     if (id === 'correct') {
       this.sumPoints();
-      this.setState({ rightAnswers: rightAnswers + 1,
+      this.setState({
+        rightAnswers: rightAnswers + 1,
         marked: true,
         timer: 0,
         isDisabled: true,
@@ -115,7 +116,7 @@ class Question extends Component {
 
   nextQuestion = () => {
     const { results, number } = this.state;
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
     this.setState(
       (prevState) => (
         { timer: 30,
@@ -130,6 +131,8 @@ class Question extends Component {
       },
     );
     if (number === Number('4')) {
+      const { rightAnswers } = this.state;
+      dispatch(strikes(rightAnswers));
       history.push('/feedback');
     }
   };

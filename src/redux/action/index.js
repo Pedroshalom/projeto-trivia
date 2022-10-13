@@ -5,6 +5,7 @@ export const REQUEST_TOKEN = 'REQUEST_TOKEN';
 export const REQUEST_TOKEN_SUCCESS = 'REQUEST_TOKEN_SUCCESS';
 export const REQUEST_TOKEN_FAILURE = 'REQUEST_TOKEN_FAILURE';
 export const SCORE_POINTS = 'SCORE_POINTS';
+export const RIGHT_ANSWERS = 'RIGHT_ANSWERS';
 
 export const addUser = (user) => ({
   type: ADD_USER,
@@ -28,6 +29,11 @@ export const requestTokenFailure = (error) => ({
 export const getPoints = (points) => ({
   type: SCORE_POINTS,
   points,
+});
+
+export const strikes = (rightAnswers) => ({
+  type: RIGHT_ANSWERS,
+  rightAnswers,
 });
 
 export function fetchToken() {

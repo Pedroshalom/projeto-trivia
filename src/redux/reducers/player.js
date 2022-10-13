@@ -1,9 +1,10 @@
-import { ADD_USER, SCORE_POINTS } from '../action';
+import { ADD_USER, SCORE_POINTS, RIGHT_ANSWERS } from '../action';
 
 const INITIAL_STATE = {
   email: '',
   name: '',
   score: 0,
+  rightAnswers: 0,
 };
 
 function player(state = INITIAL_STATE, action) {
@@ -18,6 +19,11 @@ function player(state = INITIAL_STATE, action) {
     return {
       ...state,
       score: Number(action.points) + Number(state.score),
+    };
+  case RIGHT_ANSWERS:
+    return {
+      ...state,
+      rightAnswers: Number(action.rightAnswers),
     };
   default:
     return state;
