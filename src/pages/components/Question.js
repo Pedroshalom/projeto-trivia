@@ -116,14 +116,24 @@ class Question extends Component {
   };
 
   nextQuestion = () => {
-    // const { results } = this.state;
+    const { results, number } = this.state;
+    const { history } = this.props;
     this.setState(
-      { timer: 30,
-        marked: false,
-        isDisabled: false,
+      (prevState) => (
+        { timer: 30,
+          marked: false,
+          isDisabled: false,
+          number: prevState.number + 1,
+        }
+      ),
+      () => {
+        this.timer();
+        this.getAnswers(results);
       },
-      () => this.timer(),
     );
+    if (number === Number('4')) {
+      history.push('/feedback');
+    }
   };
 
   render() {
