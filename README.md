@@ -26,10 +26,9 @@ A aplicação foi desenvolvida com:
 <details>
   <summary><strong>Como rodar o projeto</strong></summary></br>
   
-- [ ] git clone do repositório
-- [ ] `npm install`
-- [ ] `npm start`
-- [ ] acessar no browser `http://localhost:3000`
+-  clone o projeto deste repositório
+- Instale as dependências com o comando `npm install`
+- Em seguida digite o comando `npm start` no terminal
 
 </details>
 
